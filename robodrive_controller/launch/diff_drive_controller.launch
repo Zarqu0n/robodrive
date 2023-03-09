@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- ROS Control -->
+  <rosparam file="$(find robodrive_controller)/config/diff_drive_controller.yaml" command="load" />
+<!--   <rosparam file="$(find robodrive_controller)/config/controller_simulation.yaml" command="load"/> -->
+
+  <node name="robodrive_controller" pkg="controller_manager" type="spawner"
+        respawn="false" output="screen" args="diff_drive_controller" >
+  </node>
+
+
+
+
+</launch>
