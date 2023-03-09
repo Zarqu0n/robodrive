@@ -1,5 +1,6 @@
 <sdf version='1.4'>
   <world name='default'>
+
     <!-- A global light source -->
     <include>
       <uri>model://sun</uri>
@@ -33,7 +34,7 @@
 
     <!-- Load world -->
     <include>
-      <uri>model://turtlebot3_world</uri>
+      <uri>path:../models/turtlebot3_world</uri>
     </include>
 
     <scene>
@@ -48,5 +49,6 @@
         <view_controller>orbit</view_controller>
       </camera>
     </gui>
+
   </world>
 </sdf>
