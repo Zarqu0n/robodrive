@@ -34,7 +34,7 @@
 
     <!-- Load world -->
     <include>
-      <uri>path:../models/turtlebot3_world</uri>
+      <uri>model://turtlebot3_world</uri>
     </include>
 
     <scene>
