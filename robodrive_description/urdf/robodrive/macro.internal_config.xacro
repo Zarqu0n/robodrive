@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="robodrive">
+    <xacro:macro name="robodrive_dsr_config_coeff">
+    
+        <gazebo reference="link_base">
+            <material>Gazebo/Red</material>
+        </gazebo>
+
+        <gazebo reference="link_wheel_left">
+            <mu1>10</mu1>
+            <mu2>10</mu2>
+            <kp>5000000.0</kp>
+            <kd>1.0</kd>
+            <minDepth>0.001</minDepth>
+            <maxVel>0.1</maxVel>
+            <fdir1>1 0 0</fdir1>
+            <material>Gazebo/Blue</material>
+        </gazebo>
+
+        <gazebo reference="link_wheel_right">
+            <mu1>10</mu1>
+            <mu2>10</mu2>
+            <kp>5000000.0</kp>
+            <kd>1</kd>
+            <minDepth>0.001</minDepth>
+            <maxVel>0.1</maxVel>
+            <fdir1>1 0 0</fdir1>
+            <material>Gazebo/Blue</material>
+        </gazebo>
+
+        <gazebo reference="link_wheel_front">
+            <material>Gazebo/Blue</material>
+            <mu1>0.001</mu1>
+            <mu2>0.001</mu2>
+        </gazebo>
+
+        <gazebo reference="link_lidar_stand"
+            material="Gazebo/Black">
+        </gazebo>
+
+        <gazebo reference="link_lidar">
+            <material>Gazebo/Gray</material>
+        </gazebo>
+
+        <gazebo reference="link_lidar_stand">
+            <material>Gazebo/Black</material>
+        </gazebo>
+
+    </xacro:macro>
+</robot>

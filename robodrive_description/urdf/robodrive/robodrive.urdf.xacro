@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="robodrive">
+
+<xacro:include filename="$(find robodrive_description)/urdf/robodrive/macro.urdf.xacro"/>
+<xacro:include filename="$(find robodrive_description)/urdf/robodrive/macro.internal_config.xacro"/>
+<xacro:include filename="$(find robodrive_description)/urdf/robodrive/macro.sensor.xacro"/>
+<xacro:include filename="$(find robodrive_description)/urdf/robodrive/macro.controller.xacro"/>
+
+
+<xacro:robot_urdf/>
+<xacro:robodrive_dsr_config_coeff/>
+<xacro:robodrive_imu/>
+<xacro:robodrive_lidar/>
+<xacro:robodrive_diff_drive/>
+
+</robot>
