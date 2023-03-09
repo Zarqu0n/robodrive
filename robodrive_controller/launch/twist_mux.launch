@@ -1,12 +1,13 @@
 <?xml version="1.0"?>
 <launch>
-
-
+    <arg name="namespace" default="robodrive0"/>
+    <!-- Arg -->
+    <group ns="$(arg namespace)">
     <node pkg="twist_mux" type="twist_mux" name="twist_mux" output="screen">
-        <remap from="cmd_vel_out" to="/cmd_vel"/>
+        <remap from="cmd_vel_out" to="diff_drive_controller/cmd_vel"/>
 
         <rosparam file="$(find robodrive_controller)config/twist_mux_locks.yaml"  command="load"/>
         <rosparam file="$(find robodrive_controller)config/twist_mux_topics.yaml" command="load"/>
     </node>
-    
+    </group>
 </launch>

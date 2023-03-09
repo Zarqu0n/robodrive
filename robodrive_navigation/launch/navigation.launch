@@ -1,5 +1,8 @@
 <?xml version="1.0"?>
 <launch>
+<!-- Arg -->
+<arg name="namespace" default="robodrive0"/>
+<group ns="$(arg namespace)">
 <!-- Map Snode -->
     <node pkg="map_server" type="map_server" name="map_server" args="$(find robodrive_slam)/map/map2.yaml" /> 
   <!-- AMCL node -->
@@ -33,4 +36,5 @@
 
       <remap from="scan" to="/scan"/>
     </node>
+  </group>
 </launch>

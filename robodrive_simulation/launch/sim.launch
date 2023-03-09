@@ -6,6 +6,10 @@
   <arg name="x_pos" default="-2.0"/>
   <arg name="y_pos" default="-0.5"/>
   <arg name="z_pos" default="0.0"/>
+
+  <!-- ENV -->
+  <env name="GAZEBO_MODEL_PATH" value="$(find robodrive_simulation)/models:${GAZEBO_MODEL_PATH}"/>
+
   <!-- Gazebo -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="world_name" value="$(find robodrive_simulation)/worlds/turtlebot3_world.world"/>
@@ -15,17 +19,9 @@
     <arg name="headless" value="false"/>
     <arg name="debug" value="false"/>
   </include>
-  
-  <!-- Spawn Robot -->
-  <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find robodrive_description)/urdf/$(arg model)/$(arg model).urdf.xacro'" />
-  <node name="spawn_model" pkg="gazebo_ros" type="spawn_model" output="screen"
-        args="-urdf -model $(arg model) -param robot_description -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos)"/>
-  
-  <!-- Robot State Publisher -->
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen">
-    <param name="publish_frequency" type="double" value="50.0"/>
-  </node>
+
+
 
   <!-- RViz -->
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find robodrive_description)/rviz/$(arg model).rviz" output="screen"/>
-  </launch>
+<!--   <node name="rviz" pkg="rviz" type="rviz" args="-d $(find robodrive_description)/rviz/$(arg model).rviz" output="screen"/> -->
+</launch>

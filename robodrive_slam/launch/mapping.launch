@@ -1,11 +1,15 @@
 <?xml version="1.0"?>
 <launch>
 
-    <node name="robodrive_gmapping" pkg="gmapping" type="slam_gmapping" >
-      <param name="base_frame" value="base_footprint"/>
-      <param name="odom_frame" value="odom"/>
-      <param name="map_frame" value="map"/>
-      <rosparam command="load" file="$(find robodrive_slam)/param/gmapping_params.yaml" />
-    </node>
+  <!-- Arg -->
+  <arg name="namespace" default="robodrive0"/>
+  <group ns="$(arg namespace)">
+      <node name="robodrive_gmapping" pkg="gmapping" type="slam_gmapping" >
+        <param name="base_frame" value="base_footprint"/>
+        <param name="odom_frame" value="odom"/>
+        <param name="map_frame" value="map"/>
+        <rosparam command="load" file="$(find robodrive_slam)/param/gmapping_params.yaml" />
+      </node>
+  </group>
 
 </launch>

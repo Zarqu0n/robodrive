@@ -32,7 +32,7 @@
           <visualize>false</visualize>
           <serviceName>imu_service</serviceName>
           <plugin filename="libgazebo_ros_imu_sensor.so" name="imu_plugin">
-            <topicName>/imu</topicName>
+            <topicName>imu</topicName>
             <bodyName>link_imu</bodyName>
             <updateRateHZ>10.0</updateRateHZ>
             <gaussianNoise>0.0</gaussianNoise>
