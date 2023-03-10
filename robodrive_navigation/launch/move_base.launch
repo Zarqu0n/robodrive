@@ -1,9 +1,10 @@
 <launch>
   <!-- Arguments -->
-  <arg name="cmd_vel_topic" default="/nav_vel" />
-  <arg name="odom_topic" default="odom" />
-  <arg name="move_forward_only" default="true"/>
   <arg name="namespace" default="robodrive0"/>
+  <arg name="cmd_vel_topic" default="/nav_vel" />
+  <arg name="odom_topic" default="$(arg namespace)/odom" />
+  <arg name="move_forward_only" default="true"/>
+
 
   <group ns="$(arg namespace)">
     <!-- move_base -->

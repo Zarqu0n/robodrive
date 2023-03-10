@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- Arg -->
+    <arg name="namespace" default="robodrive0"/>
+
+    <!-- Map Snode -->
+    <node pkg="map_server" type="map_server" name="map_server" args="$(find robodrive_slam)/map/map2.yaml">
+    </node>
+
+    <group ns="$(arg namespace)">
+        <node name="amcl" pkg="amcl" type="amcl" output="screen">
+            <param name="odom_frame_id" value="$(arg namespace)/odom"/>
+            <param name="base_frame_id" value="$(arg namespace)/link_lidar"/>
+            <param name="global_frame_id" value="map"/>
+        </node>
+        
+    </group>
+
+</launch>

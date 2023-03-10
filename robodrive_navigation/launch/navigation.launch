@@ -2,19 +2,20 @@
 <launch>
 <!-- Arg -->
 <arg name="namespace" default="robodrive0"/>
-<group ns="$(arg namespace)">
-<!-- Map Snode -->
-    <node pkg="map_server" type="map_server" name="map_server" args="$(find robodrive_slam)/map/map2.yaml" /> 
-  <!-- AMCL node -->
-    <node pkg="amcl" type="amcl" name="amcl" output="screen">
 
-      <param name="use_map_topic" value="false"/>
-      <param name="first_map_only" value="true"/>
-      <param name="odom_frame_id" value="odom"/>
-      <param name="base_frame_id" value="base_footprint"/>
-      <param name="global_frame_id" value="map"/>
-      <param name="tf_broadcast" value="true"/>
+
+<!-- Map Snode -->
+
+  <!-- AMCL node -->
+  <node pkg="map_server" type="map_server" name="map_server" args="$(find robodrive_slam)/map/map2.yaml" /> 
+  <group ns="$(arg namespace)">
+
+    <node pkg="amcl" type="amcl" name="amcl" output="screen">
+      <param name="odom_frame_id" value="robodrive0/odom"/>
+      <param name="base_frame_id" value="robodrive0/base_footprint"/>
       <param name="initial_pose_x" value="0.0"/>
+      <param name="use_map_topic" value="true"/>
+      <param name="global_frame_id" value="/map"/>
       <param name="initial_pose_y" value="0.0"/>
       <param name="initial_pose_a" value="0.0"/>
       <param name="update_min_d" value="0.2"/>
@@ -32,9 +33,6 @@
       <param name="transform_tolerance" value="1.0"/>
       <param name="recovery_alpha_slow" value="0.0"/>
       <param name="recovery_alpha_fast" value="0.0"/>
-
-
-      <remap from="scan" to="/scan"/>
     </node>
   </group>
 </launch>
