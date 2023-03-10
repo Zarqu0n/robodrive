@@ -3,13 +3,12 @@
 
   <!-- Arg -->
   <arg name="namespace" default="robodrive0"/>
-  <group ns="$(arg namespace)">
-      <node name="robodrive_gmapping" pkg="gmapping" type="slam_gmapping" >
-        <param name="base_frame" value="base_footprint"/>
-        <param name="odom_frame" value="odom"/>
-        <param name="map_frame" value="map"/>
-        <rosparam command="load" file="$(find robodrive_slam)/param/gmapping_params.yaml" />
-      </node>
-  </group>
+  <node name="robodrive_gmapping" pkg="gmapping" type="slam_gmapping" >
+    <param name="base_frame" value="link_base"/>
+    <param name="odom_frame" value="odom"/>
+    <param name="map_frame" value="map"/>
+    <rosparam command="load" file="$(find robodrive_slam)/param/gmapping_params.yaml" />
+  </node>
+
 
 </launch>
