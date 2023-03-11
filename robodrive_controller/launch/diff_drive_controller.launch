@@ -4,11 +4,12 @@
   <!-- Arg -->
   <arg name="namespace" default="robodrive0"/>
   <!-- ROS Control -->
-  <rosparam file="$(find robodrive_controller)/config/diff_drive_controller.yaml" command="load"/>
-  <param name="diff_drive_controller/base_frame_id" value="/robodrive0/link_base"/>
-  <param name="diff_drive_controller/odom_frame_id" value="/robodrive0/odom"/>
+  <rosparam file="$(find robodrive_controller)/config/diff_drive_controller.yaml" command="load" ns="$(arg namespace)"/>
+  <param name="$(arg namespace)/diff_drive_controller/base_frame_id" value="$(arg namespace)/base_footprint"/>
+  <param name="$(arg namespace)/diff_drive_controller/odom_frame_id" value="$(arg namespace)/odom"/>
 
   <node name="robodrive_controller" pkg="controller_manager" type="spawner"
-        respawn="false" output="screen" args="diff_drive_controller" >
+        respawn="false" output="screen" args="$(arg namespace)/diff_drive_controller --namespace=/$(arg namespace)" >
+        <param name="tf_prefix" value="$(arg namespace)" />
   </node>
 </launch>

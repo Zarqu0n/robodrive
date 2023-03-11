@@ -1,29 +1,35 @@
 <launch>
   <!-- Arguments -->
-  <arg name="map_file" default="$(find robodrive_slam)/map/map2.yaml"/>
-  <arg name="open_rviz" default="false"/>
+  <arg name="map" default="map2"/>
+  <arg name="open_rviz" default="true"/>
   <arg name="move_forward_only" default="false"/>
   <arg name="model" default="robodrive" />
+  <arg name="namespace" default="robodrive0" />
 
-  <group ns="robodrive0">
-    <param name="tf_prefix" value="robodrive0"/>
-    <!-- Turtlebot3 -->
-
+  <arg name="map_file" default="$(find robodrive_slam)/map/$(arg map).yaml"/>
+  <group ns="$(arg namespace)">
+    <param name="tf_prefix" value="$(arg namespace)"/>
     <!-- Map server -->
-   <node pkg="map_server" name="map_server" type="map_server" args="$(arg map_file)">
-    <param name="frame_id" value="map" />
-   </node>
-    <!-- AMCL -->
-    <include file="$(find robodrive_navigation)/launch/amcl.launch"/>
-  </group>
+    <node pkg="map_server" name="$(arg namespace)_map_server" type="map_server" args="$(arg map_file)">
+      <param name="frame_id" value="$(arg namespace)/map" />
+    </node>
 
+    <!-- AMCL -->
+    <include file="$(find robodrive_navigation)/launch/amcl.launch">
+      <arg name="namespace" value="$(arg namespace)"/>
+    </include>
 
 <!--  move_base -->
-<!--   <include file="$(find robodrive_navigation)/launch/move_base.launch">
-  </include>  -->
+    <include file="$(find robodrive_navigation)/launch/move_base.launch">
+      <arg name="namespace" value="$(arg namespace)"/>
+      <arg name="move_forward_only" value="$(arg move_forward_only)"/>
+    </include>
 
-<!--   <group if="$(arg open_rviz)"> 
-    <node pkg="rviz" type="rviz" name="rviz" required="true"
-          args="-d $(find turtlebot3_navigation)/rviz/turtlebot3_navigation.rviz"/>
-  </group>  -->
+  </group>
+
+<!-- RViz -->
+  <group if="$(arg open_rviz)" ns="$(arg namespace)"> 
+    <param name="tf_prefix" value="$(arg namespace)"/>
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find robodrive_description)/rviz/$(arg model).rviz" output="screen"/>
+  </group> 
 </launch>

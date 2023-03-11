@@ -9,10 +9,11 @@
 
     <group ns="$(arg namespace)">
         
+        <param name="tf_prefix" value="$(arg namespace)" />
         <!-- Spawn Robot -->
         <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find robodrive_description)/urdf/$(arg model)/$(arg model).urdf.xacro'" />
-        <node name="spawn_model" pkg="gazebo_ros" type="spawn_model" output="screen"
-                args="-urdf -model $(arg model) -param robot_description -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) -robot_namespace robodrive0">
+        <node name="$(arg namespace)_spawn_model" pkg="gazebo_ros" type="spawn_model" output="screen"
+                args="-urdf -model $(arg namespace) -param robot_description -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) -robot_namespace $(arg namespace)">
         </node>
         
         <!-- Robot State Publisher -->
@@ -24,10 +25,13 @@
         <!-- Joint State Publisher -->
         <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" output="screen">
         </node>
+
         <!-- ROS Control -->
         <include file="$(find robodrive_controller)/launch/diff_drive_controller.launch">
             <arg name="namespace" value="$(arg namespace)"/>
         </include>
-        
-    </group>
+
+        <!-- Static TF Publisher -->
+  <!--       <node name="static_tf_publisher" pkg="tf" type="static_transform_publisher" args="0 0 0 0 3.14 0 $(arg namespace)/base_footprint $(arg namespace)/link_base 100" />-->
+    </group> 
 </launch>

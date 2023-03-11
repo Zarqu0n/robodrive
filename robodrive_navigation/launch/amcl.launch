@@ -3,8 +3,8 @@
   <arg name="scan_topic"     default="scan"/>
   <arg name="initial_pose_x" default="0.0"/>
   <arg name="initial_pose_y" default="0.0"/>
-  <arg name="initial_pose_a" default="0.0"/>
-
+  <arg name="initial_pose_a" default="1.571"/>
+  <arg name="namespace"      default="robodrive0"/>
   <!-- AMCL -->
   <node pkg="amcl" type="amcl" name="amcl">
 
@@ -39,9 +39,9 @@
     <param name="odom_alpha2"               value="0.1"/>
     <param name="odom_alpha3"               value="0.1"/>
     <param name="odom_alpha4"               value="0.1"/>
-    <param name="odom_frame_id"             value="/robodrive0/odom"/>
-    <param name="base_frame_id"             value="/robodrive0/link_base"/>
-    <param name="global_frame_id"           value="/map"/>
+    <param name="odom_frame_id"             value="/$(arg namespace)/odom"/>
+    <param name="base_frame_id"             value="/$(arg namespace)/base_footprint"/>
+    <param name="global_frame_id"           value="/$(arg namespace)/map"/>
 
   </node>
 </launch>

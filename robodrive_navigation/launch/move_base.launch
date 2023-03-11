@@ -1,7 +1,7 @@
 <launch>
   <!-- Arguments -->
   <arg name="namespace" default="robodrive0"/>
-  <arg name="cmd_vel_topic" default="/nav_vel" />
+  <arg name="cmd_vel_topic" default="/$(arg namespace)/nav_vel" />
   <arg name="odom_topic" default="diff_drive_controller/odom" />
   <arg name="move_forward_only" default="true"/>
 
@@ -10,9 +10,26 @@
     <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
       <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" />
       <rosparam file="$(find robodrive_navigation)/param/costmap_common_params.yaml" command="load" ns="global_costmap" />
+
+      <param name="global_costmap/scan_filtered/sensor_frame" value="$(arg namespace)/link_lidar" />
+      <param name="global_costmap/scan_filtered/topic" value="/$(arg namespace)/scan" />
+
       <rosparam file="$(find robodrive_navigation)/param/costmap_common_params.yaml" command="load" ns="local_costmap" />
+      
+      <param name="local_costmap/scan_filtered/sensor_frame" value="$(arg namespace)/link_lidar" />
+      <param name="local_costmap/scan_filtered/topic" value="/$(arg namespace)/scan" />
+
       <rosparam file="$(find robodrive_navigation)/param/local_costmap_params.yaml" command="load" />
+
+      <param name="local_costmap/global_frame" value="$(arg namespace)/map" />
+      <param name="local_costmap/robot_base_frame" value="$(arg namespace)/base_footprint" />
+
       <rosparam file="$(find robodrive_navigation)/param/global_costmap_params.yaml" command="load" />
+
+
+      <param name="global_costmap/global_frame" value="$(arg namespace)/map" />
+      <param name="global_costmap/robot_base_frame" value="$(arg namespace)/base_footprint" />
+
       <rosparam file="$(find robodrive_navigation)/param/move_base_params.yaml" command="load" />
       <rosparam file="$(find robodrive_navigation)/param/dwa_local_planner_params.yaml" command="load" />
       <remap from="cmd_vel" to="$(arg cmd_vel_topic)"/>
