@@ -1,0 +1,5 @@
+<launch>
+  <arg name="model" default="robodrive"/>
+  <arg name="urdf_file" default="$(find xacro)/xacro --inorder '$(find robodrive_description)/urdf/$(arg model)/$(arg model).urdf.xacro'" />
+  <param name="robot_description" command="$(arg urdf_file)" />
+</launch>

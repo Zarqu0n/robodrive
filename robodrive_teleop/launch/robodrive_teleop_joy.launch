@@ -5,7 +5,6 @@
   <arg name="joy_dev" default="/dev/input/js0" />
   <arg name="config_filepath" default="$(find robodrive_teleop)/config/$(arg joy_config).config.yaml" />
   <arg name="joy_topic" default="joy" />
-  <arg name="namespace" default="robodrive0"/>
 
       <node pkg="joy" type="joy_node" name="joy_node">
         <param name="dev" value="$(arg joy_dev)" />
@@ -17,7 +16,7 @@
     </node>
     <node pkg="teleop_twist_joy" name="teleop_twist_joy" type="teleop_node">
         <rosparam command="load" file="$(arg config_filepath)" />
-        <remap from="cmd_vel" to="$(arg namespace)/joy_vel" />
+        <remap from="cmd_vel" to="/joy_vel" />
     </node>
 
 

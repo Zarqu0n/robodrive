@@ -1,38 +1,35 @@
-<?xml version="1.0"?>
 <launch>
-<!-- Arg -->
-<arg name="namespace" default="robodrive0"/>
-<!-- Map Snode -->
-    <node pkg="map_server" type="map_server" name="map_server" args="$(find robodrive_slam)/map/map2.yaml" /> 
-  <!-- AMCL node -->
-    <node pkg="amcl" type="amcl" name="amcl" output="screen">
+  <!-- Arguments -->
+  <arg name="map" default="map2"/>
+  <arg name="open_rviz" default="true"/>
+  <arg name="move_forward_only" default="false"/>
+  <arg name="model" default="robodrive" />
+  <arg name="namespace" default="robodrive0" />
 
-      <param name="use_map_topic" value="false"/>
-      <param name="first_map_only" value="true"/>
-      <param name="odom_frame_id" value="odom"/>
-      <param name="base_frame_id" value="link_base"/>
-      <param name="global_frame_id" value="map"/>
-      <param name="tf_broadcast" value="true"/>
-      <param name="initial_pose_x" value="0.0"/>
-      <param name="initial_pose_y" value="0.0"/>
-      <param name="initial_pose_a" value="0.0"/>
-      <param name="update_min_d" value="0.2"/>
-      <param name="update_min_a" value="0.2"/>
-      <param name="min_particles" value="500"/>
-      <param name="max_particles" value="1000"/>
-      <param name="kld_err" value="0.01"/>
-      <param name="kld_z" value="0.99"/>
-      <param name="odom_alpha1" value="0.2"/>
-      <param name="odom_alpha2" value="0.2"/>
-      <param name="odom_alpha3" value="0.2"/>
-      <param name="odom_alpha4" value="0.2"/>
-      <param name="odom_alpha5" value="0.2"/>
-      <param name="resample_interval" value="1"/>
-      <param name="transform_tolerance" value="1.0"/>
-      <param name="recovery_alpha_slow" value="0.0"/>
-      <param name="recovery_alpha_fast" value="0.0"/>
-
-
-      <remap from="scan" to="/scan"/>
+  <arg name="map_file" default="$(find robodrive_slam)/map/$(arg map).yaml"/>
+  <group ns="$(arg namespace)">
+    <param name="tf_prefix" value="$(arg namespace)"/>
+    <!-- Map server -->
+    <node pkg="map_server" name="$(arg namespace)_map_server" type="map_server" args="$(arg map_file)">
+      <param name="frame_id" value="$(arg namespace)/map" />
     </node>
+
+    <!-- AMCL -->
+    <include file="$(find robodrive_navigation)/launch/amcl.launch">
+      <arg name="namespace" value="$(arg namespace)"/>
+    </include>
+
+<!--  move_base -->
+    <include file="$(find robodrive_navigation)/launch/move_base.launch">
+      <arg name="namespace" value="$(arg namespace)"/>
+      <arg name="move_forward_only" value="$(arg move_forward_only)"/>
+    </include>
+
+  </group>
+
+<!-- RViz -->
+  <group if="$(arg open_rviz)" ns="$(arg namespace)"> 
+    <param name="tf_prefix" value="$(arg namespace)"/>
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find robodrive_description)/rviz/$(arg model).rviz" output="screen"/>
+  </group> 
 </launch>

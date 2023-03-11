@@ -5,7 +5,7 @@
   <arg name="model" default="robodrive"/>
   <arg name="x_pos" default="-2.0"/>
   <arg name="y_pos" default="-0.5"/>
-  <arg name="z_pos" default="0.0"/>
+  <arg name="z_pos" default="3.14"/>
 
   <!-- ENV -->
   <env name="GAZEBO_MODEL_PATH" value="$(find robodrive_simulation)/models:${GAZEBO_MODEL_PATH}"/>
@@ -20,8 +20,4 @@
     <arg name="debug" value="false"/>
   </include>
 
-
-
-  <!-- RViz -->
-<!--   <node name="rviz" pkg="rviz" type="rviz" args="-d $(find robodrive_description)/rviz/$(arg model).rviz" output="screen"/> -->
 </launch>
