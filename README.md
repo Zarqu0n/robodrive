@@ -18,7 +18,7 @@ Contain rviz and robodrive urdf file.
 Using amcl for localization and move_base package.
 Launching navigation for specify namespaces
 ```
-roslaunch robodrive_navigation navigation.launch namespace:=<namespace>
+roslaunch robodrive_navigation navigation.launch namespace:=<namespace> open_rviz:=<bool>
 ```
 
 ## robodrive_simulation
