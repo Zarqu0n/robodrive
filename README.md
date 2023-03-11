@@ -30,7 +30,7 @@ roslaunch robodrive_simulation sim.launch
 ```
 Spawning robot for specify namespaces
 ```
-roslaunch robodrive_simulation robot_spawner.launch namespace:=<namespace>
+roslaunch robodrive_simulation robot_spawner.launch namespace:=<namespace> x_pos:=<x> y_pos:=<y> z_pos:=<z>
 ```
 
 ## robodrive_slam
