@@ -2,11 +2,10 @@
   <!-- Arguments -->
   <arg name="namespace" default="robodrive0"/>
   <arg name="cmd_vel_topic" default="/nav_vel" />
-  <arg name="odom_topic" default="$(arg namespace)/odom" />
+  <arg name="odom_topic" default="diff_drive_controller/odom" />
   <arg name="move_forward_only" default="true"/>
 
 
-  <group ns="$(arg namespace)">
     <!-- move_base -->
     <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
       <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" />
@@ -20,6 +19,5 @@
       <remap from="odom" to="$(arg odom_topic)"/>
       <param name="DWAPlannerROS/min_vel_x" value="0.0" if="$(arg move_forward_only)" />
     </node>
-  </group>
   
 </launch>

@@ -5,8 +5,8 @@
   <arg name="namespace" default="robodrive0"/>
   <!-- ROS Control -->
   <rosparam file="$(find robodrive_controller)/config/diff_drive_controller.yaml" command="load"/>
-  <param name="diff_drive_controller/base_frame_id" value="$(arg namespace)/link_base"/>
-  <param name="diff_drive_controller/odom_frame_id" value="$(arg namespace)/odom"/>
+  <param name="diff_drive_controller/base_frame_id" value="/robodrive0/link_base"/>
+  <param name="diff_drive_controller/odom_frame_id" value="/robodrive0/odom"/>
 
   <node name="robodrive_controller" pkg="controller_manager" type="spawner"
         respawn="false" output="screen" args="diff_drive_controller" >
