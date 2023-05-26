@@ -50,6 +50,6 @@
         <hardwareInterface>VelocityJointInterface</hardwareInterface>
         <mechanicalReduction>1</mechanicalReduction>
         </actuator>
-    </transmission>7
+    </transmission>
     </xacro:macro>
 </robot>
